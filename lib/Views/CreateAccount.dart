@@ -1,32 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:iotmobile/ControllerFiles/AuthController.dart';
+import 'package:iotmobile/ControllerFiles/Dialog.dart';
 import 'package:iotmobile/ControllerFiles/Helper.dart';
 import 'package:iotmobile/ControllerFiles/Validators.dart';
+import 'package:iotmobile/Model/UserModel.dart';
 
-import '../ControllerFiles/AuthController.dart';
-import '../ControllerFiles/Dialog.dart';
 
-class LoginScreen extends StatefulWidget {
+class CreateAccount extends StatefulWidget {
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<CreateAccount> createState() => _CreateAccountState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _CreateAccountState extends State<CreateAccount> {
   final controller = Get.put(StateHelper());
+
 
   TextEditingController _email = TextEditingController();
   TextEditingController _password = TextEditingController();
+  TextEditingController _firstName = TextEditingController();
+  TextEditingController _lastName = TextEditingController();
 
-  final _loginViewFormkey = GlobalKey<FormState>();
+  AuthController  fireabaseauth = AuthController.instance;
 
-  AuthController fireabaseauth = AuthController.instance;
+  final  _createPasswordFormkey = GlobalKey<FormState>();
 
   @override
   void dispose() {
     _password.dispose();
     _email.dispose();
+    _firstName.dispose();
+    _lastName.dispose();
     super.dispose();
   }
 
@@ -40,27 +45,17 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             children: [
               SizedBox(
-                height: 50,
-              ),
-              Container(
-                child: Text("Parked In",
-                    style: GoogleFonts.mulish(
-                        color: Colors.purpleAccent,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 34)),
-              ),
-              SizedBox(
-                height: 50,
+                height: 10,
               ),
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 30),
-                child: Image.asset("assets/seatingoncar.jpg"),
+                child: Image.asset("assets/createAccount.png"),
               ),
               SizedBox(
                 height: 30,
               ),
               Container(
-                child: Text("Get In",
+                child: Text("Sign Up",
                     style: GoogleFonts.mulish(
                         color: Colors.purpleAccent,
                         fontWeight: FontWeight.bold,
@@ -75,15 +70,93 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 35,
               ),
               Form(
-                key: _loginViewFormkey,
+                key: _createPasswordFormkey,
                 child: Column(
                   children: [
                     Container(
                       margin: EdgeInsets.symmetric(horizontal: 30),
                       child: TextFormField(
                         style: GoogleFonts.mulish(),
+                        controller: _firstName,
+                        validator: requiredValidator,
+                        keyboardType: TextInputType.text,
+                        cursorColor: Colors.purpleAccent,
+                        cursorHeight: .2,
+                        cursorRadius: Radius.circular(10),
+                        decoration: InputDecoration(
+                            labelText: "First Name",
+                            labelStyle:
+                                GoogleFonts.mulish(color: Colors.purpleAccent),
+                            prefixStyle: GoogleFonts.mulish(),
+                            hintText: "Enter First Name",
+                            disabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(15),
+                                borderSide:
+                                    BorderSide(color: Colors.purpleAccent)),
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(15),
+                                borderSide:
+                                    BorderSide(color: Colors.purpleAccent)),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(15),
+                                borderSide:
+                                    BorderSide(color: Colors.purpleAccent)),
+                            focusColor: Colors.purpleAccent,
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(15),
+                                borderSide:
+                                    BorderSide(color: Colors.purpleAccent))),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 25,
+                    ),
+                    Container(
+                      margin: EdgeInsets.symmetric(horizontal: 30),
+                      child: TextFormField(
+                        style: GoogleFonts.mulish(),
+                        controller: _lastName,
+                        validator: requiredValidator,
+                          
+                        keyboardType: TextInputType.text,
+                        cursorColor: Colors.purpleAccent,
+                        cursorHeight: .2,
+                        cursorRadius: Radius.circular(10),
+                        decoration: InputDecoration(
+                            labelText: "LastName",
+                            labelStyle:
+                                GoogleFonts.mulish(color: Colors.purpleAccent),
+                            prefixStyle: GoogleFonts.mulish(),
+                            hintText: "Enter Last Name",
+                            disabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(15),
+                                borderSide:
+                                    BorderSide(color: Colors.purpleAccent)),
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(15),
+                                borderSide:
+                                    BorderSide(color: Colors.purpleAccent)),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(15),
+                                borderSide:
+                                    BorderSide(color: Colors.purpleAccent)),
+                            focusColor: Colors.purpleAccent,
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(15),
+                                borderSide:
+                                    BorderSide(color: Colors.purpleAccent))),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 25,
+                    ),
+                    Container(
+                      margin: EdgeInsets.symmetric(horizontal: 30),
+                      child: TextFormField(
+                        style: GoogleFonts.mulish(),
                         controller: _email,
                         validator: emailValidator,
+                          
                         keyboardType: TextInputType.emailAddress,
                         cursorColor: Colors.purpleAccent,
                         cursorHeight: .2,
@@ -124,6 +197,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           controller: _password,
                           obscureText: controller.isPasswordHidden.value,
                           style: GoogleFonts.mulish(),
+                            
                           keyboardType: TextInputType.visiblePassword,
                           cursorColor: Colors.purpleAccent,
                           cursorHeight: .2,
@@ -173,52 +247,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               SizedBox(
-                height: 20,
-              ),
-              Row(
-                children: [
-                  InkWell(
-                    enableFeedback: true,
-                    onTap: () {
-                      Get.toNamed('/createAccount');
-                    },
-                    borderRadius: BorderRadius.circular(10),
-                    child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: 30),
-                      child: Text("Create Account",
-                          style: GoogleFonts.mulish(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.purpleAccent,
-                          )),
-                    ),
-                  )
-                ],
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              Row(
-                children: [
-                  InkWell(
-                    enableFeedback: true,
-                    onTap: () {
-                      Get.toNamed('/forgotPassword');
-                    },
-                    borderRadius: BorderRadius.circular(10),
-                    child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: 30),
-                      child: Text("Forgot Password?",
-                          style: GoogleFonts.mulish(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.purpleAccent,
-                          )),
-                    ),
-                  )
-                ],
-              ),
-              SizedBox(
                 height: 50,
               ),
               Obx(
@@ -238,37 +266,22 @@ class _LoginScreenState extends State<LoginScreen> {
                               color: Colors.purpleAccent,
                               child: IconButton(
                                 onPressed: () async {
-                                  if (_loginViewFormkey.currentState!
-                                      .validate()) {
-                                    FocusNode().unfocus();
-                                    controller.makeButtonDisabled();
-                                    final result = await fireabaseauth
-                                        .signInwithEmailandPassword(
-                                            _email.text, _password.text);
-                                    await Future.delayed(
-                                        const Duration(seconds: 2));
-                                    controller.makeButtonEnabled();
-                                    if (result) {
-                                      Get.offNamed('/dashboard');
-                                    } else {
-                                      dialog(
-                                          "Unable to Login.",
-                                          context,
-                                          Icon(
-                                            Icons.warning_amber_outlined,
-                                            size: 50,
-                                            color: Colors.red,
-                                          ),
-                                          ElevatedButton(
-                                              onPressed: () {
-                                                Get.back();
-                                              },
-                                              child: Text(
-                                                "Okay.",
-                                                style: GoogleFonts.signika(),
-                                              )));
-                                    }
-                                  }
+                                 if(_createPasswordFormkey.currentState!.validate()){
+                                   FocusNode().unfocus();
+                                   controller.makeButtonDisabled();
+                                   final result = await fireabaseauth.createAccountwithEmailandPassword(_email.text, _password.text,UserDetails(FirstName: _firstName.text, LastName: _lastName.text, Email: _email.text));
+                                   await Future.delayed(const Duration(seconds: 2));
+                                   controller.makeButtonEnabled();
+                                   if(result){
+                                     dialog("Account Created Successfully.", context,Icon(Icons.done,size: 50,color: Colors.green,),ElevatedButton(onPressed: (){
+                                       Get.back();
+                                     }, child: Text("Okay.",style: GoogleFonts.signika(),)));
+                                   }else{
+                                     dialog("Unable to Sign Up.", context,Icon(Icons.warning_amber_outlined,size: 50,color: Colors.red,),ElevatedButton(onPressed: (){
+                                       Get.back();
+                                     }, child: Text("Okay.",style: GoogleFonts.signika(),)));
+                                   }
+                                 }
                                 },
                                 icon: Icon(
                                   Icons.arrow_forward_rounded,

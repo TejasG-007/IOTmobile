@@ -1,16 +1,28 @@
 import 'package:get/get.dart';
 
 class StateHelper extends GetxController{
+
+ final userloggedin = false.obs;
+
+
   var isPasswordHidden = true.obs;
+  final isButtonDisabled = false.obs;
 
   ShowPassword(){
     isPasswordHidden.value = !(isPasswordHidden.value);
   }
 
+  makeButtonDisabled(){
+    isButtonDisabled.value = true;
+  }
+  makeButtonEnabled(){
+    isButtonDisabled.value = false;
+  }
+
   var SlotData = {
     "Slot-1":{
-      "isBooked":true,
-      "isAvailable":false,
+      "isBooked":false,
+      "isAvailable":true,
       "Booked-by-user-id":"",
       "booked-time":"",
     },"Slot-2":{
@@ -19,8 +31,8 @@ class StateHelper extends GetxController{
       "Booked-by-user-id":"",
       "booked-time":"",
     },"Slot-3":{
-      "isBooked":true,
-      "isAvailable":false,
+      "isBooked":false,
+      "isAvailable":true,
       "Booked-by-user-id":"",
       "booked-time":"",
     },
@@ -38,4 +50,17 @@ class StateHelper extends GetxController{
     return SlotData[Slotno]?["isAvailable"] as bool;
   }
 
+
+  ////////////////////////----------buffer timing
+
+  RxString bufferTime = "1".obs;
+  RxString bufferPrice = "2.75".obs;
+  RxString parkingTime = "02:00".obs;
+  RxString parkingPrice = "1.75".obs;
+  RxString parkingDuration = "1".obs;
+  RxString earliarParkingTime = "02:00".obs;
+
+
+
 }
+
