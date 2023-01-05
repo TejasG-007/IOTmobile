@@ -193,11 +193,10 @@ class _CreateAccountState extends State<CreateAccount> {
                       () => Container(
                         margin: EdgeInsets.symmetric(horizontal: 30),
                         child: TextFormField(
-                          validator: requiredValidator,
+                          validator: passwordValidator,
                           controller: _password,
                           obscureText: controller.isPasswordHidden.value,
                           style: GoogleFonts.mulish(),
-                            
                           keyboardType: TextInputType.visiblePassword,
                           cursorColor: Colors.purpleAccent,
                           cursorHeight: .2,

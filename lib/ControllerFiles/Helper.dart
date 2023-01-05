@@ -56,7 +56,7 @@ class StateHelper extends GetxController{
   RxString bufferTime = "1".obs;
   RxString bufferPrice = "2.75".obs;
   RxString parkingTime = "02:00".obs;
-  RxString parkingPrice = "1.75".obs;
+  RxString parkingPrice = "1".obs;
   RxString parkingDuration = "1".obs;
   RxString earliarParkingTime = "02:00".obs;
 

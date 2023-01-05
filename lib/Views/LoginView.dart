@@ -43,7 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 50,
               ),
               Container(
-                child: Text("Parked In",
+                child: Text("EV CS Slot Booking",
                     style: GoogleFonts.mulish(
                         color: Colors.purpleAccent,
                         fontWeight: FontWeight.bold,
@@ -120,7 +120,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       () => Container(
                         margin: EdgeInsets.symmetric(horizontal: 30),
                         child: TextFormField(
-                          validator: requiredValidator,
+                          validator: passwordValidator,
                           controller: _password,
                           obscureText: controller.isPasswordHidden.value,
                           style: GoogleFonts.mulish(),

@@ -21,7 +21,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
 
   FirebaseFirestore _storage = FirebaseFirestore.instance;
 
-  double parkingPrice = 1.75;
+  double parkingPrice = 1;
   double bufferPrice = 2.75;
   @override
   Widget build(BuildContext context) {
